@@ -23,6 +23,7 @@ export default function ResultsPage() {
   const [showResults, setShowResults] = useState(false)
   const [isLoadingEmail, setIsLoadingEmail] = useState(false)
   const [emailError, setEmailError] = useState("")
+  const [adminEmailSent, setAdminEmailSent] = useState(false)
 
   useEffect(() => {
     const answersJson = sessionStorage.getItem("quizAnswers")
@@ -38,6 +39,101 @@ export default function ResultsPage() {
     const calculatedScores = calculateScores(answers)
     setScores(calculatedScores)
   }, [router])
+
+  useEffect(() => {
+    if (showResults && scores && contactData && !adminEmailSent) {
+      // Wait for charts to render, then send email to admin
+      const sendAdminEmail = async () => {
+        try {
+          console.log("[v0] Waiting for charts to render before sending admin email...")
+          await new Promise((resolve) => setTimeout(resolve, 2000))
+
+          console.log("[v0] Looking for chart elements...")
+          const radar3psDiv = document.getElementById("radar-3ps")
+          const radarAreasDiv = document.getElementById("radar-areas")
+
+          const radar3psCanvas = radar3psDiv?.querySelector("canvas")
+          const radarAreasCanvas = radarAreasDiv?.querySelector("canvas")
+
+          if (!radar3psCanvas || !radarAreasCanvas) {
+            console.error("[v0] Charts not found, skipping admin email")
+            return
+          }
+
+          const radar3psDataURL = radar3psCanvas.toDataURL("image/png")
+          const radarAreasDataURL = radarAreasCanvas.toDataURL("image/png")
+
+          const emailData: EmailTemplateData = {
+            contact: {
+              name: contactData.fullName,
+              email: contactData.email,
+              company: contactData.company,
+              segment: contactData.segment,
+              revenue: contactData.annualRevenue,
+              phone: contactData.phone,
+            },
+            scores: {
+              overall: scores.overallScore,
+              pillars: {
+                pessoas: scores.pillarScores.find((p) => p.pillar === "Pessoas")?.score || 0,
+                processos: scores.pillarScores.find((p) => p.pillar === "Processos")?.score || 0,
+                plataformas: scores.pillarScores.find((p) => p.pillar === "Plataformas")?.score || 0,
+              },
+              areas: {
+                marketing: scores.areaScores.find((a) => a.area === "Marketing")?.score || 0,
+                comunicacao: scores.areaScores.find((a) => a.area === "Comunicação")?.score || 0,
+                vendas: scores.areaScores.find((a) => a.area === "Vendas")?.score || 0,
+              },
+            },
+            narrative: {
+              level: scores.maturityLevel,
+              headline: scores.narrative.headline,
+              body: scores.narrative.body,
+            },
+            gaps: scores.gaps.map((gap) => ({
+              pillar: gap.pillar,
+              area: gap.area,
+              text: gap.text,
+              maturityLevel: gap.maturityLevel,
+            })),
+            strengths: scores.reinforcements.map((reinforcement) => ({
+              pillar: reinforcement.pillar,
+              area: reinforcement.area,
+              text: reinforcement.text,
+            })),
+            charts: {
+              radar3ps: radar3psDataURL,
+              radarAreas: radarAreasDataURL,
+            },
+            isInternalCopy: true,
+          }
+
+          console.log("[v0] Sending admin notification email...")
+          const response = await fetch("/api/send-results", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...emailData,
+              adminEmail: "renatocamarotta@gmail.com",
+            }),
+          })
+
+          if (response.ok) {
+            console.log("[v0] Admin email sent successfully")
+            setAdminEmailSent(true)
+          } else {
+            console.error("[v0] Failed to send admin email")
+          }
+        } catch (error) {
+          console.error("[v0] Error sending admin email:", error)
+        }
+      }
+
+      sendAdminEmail()
+    }
+  }, [showResults, scores, contactData, adminEmailSent])
 
   const handleLeadSubmit = (data: ContactData) => {
     setContactData(data)

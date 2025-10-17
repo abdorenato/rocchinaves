@@ -9,7 +9,8 @@ export async function POST(request: Request) {
     console.log("[v0] Received email request")
     const body = await request.json()
     console.log("[v0] Request body parsed successfully")
-    const emailData = body as EmailTemplateData
+
+    const { adminEmail, ...emailData } = body as EmailTemplateData & { adminEmail?: string }
 
     // Validate required fields
     if (!emailData?.contact?.email || !emailData?.contact?.name || !emailData?.scores) {
@@ -33,16 +34,20 @@ export async function POST(request: Request) {
     const emailSubject = process.env.EMAIL_SUBJECT || "Seu Diagnóstico Torre de Controle™ está pronto 🚀"
     const emailBcc = process.env.EMAIL_BCC
 
+    const recipientEmail = adminEmail || emailData.contact.email
+    const isAdminEmail = !!adminEmail
+
     // Send email using Resend
     const emailOptions: any = {
       from: emailFrom,
-      to: [emailData.contact.email],
-      subject: emailSubject,
+      to: [recipientEmail],
+      subject: isAdminEmail
+        ? `[Admin] Novo diagnóstico: ${emailData.contact.name} - ${emailData.scores.overall.toFixed(1)}/5.0`
+        : emailSubject,
       html: htmlContent,
     }
 
-    // Add BCC if configured
-    if (emailBcc) {
+    if (emailBcc && !isAdminEmail) {
       emailOptions.bcc = [emailBcc]
     }
 
