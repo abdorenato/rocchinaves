@@ -7,6 +7,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { MessageCircle, CheckCircle2, AlertTriangle, Shield } from "lucide-react"
 
+export const dynamic = "force-dynamic"
+
 type RiskLevel = "low" | "medium" | "high" | "critical"
 
 interface RiskAssessment {
@@ -80,6 +82,19 @@ Aguardo retorno!`,
       case "critical":
         return "bg-red-50 border-red-200"
     }
+  }
+
+  if (!assessment) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-muted-foreground">Carregando resultados...</p>
+          </div>
+        </main>
+      </div>
+    )
   }
 
   return (
