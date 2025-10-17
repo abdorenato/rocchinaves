@@ -36,16 +36,15 @@ export async function POST(request: Request) {
     // Send email using Resend
     const emailOptions: any = {
       from: emailFrom,
-      to: ["renatocamarotta@gmail.com"], // Changed from emailData.contact.email
-      replyTo: emailData.contact.email, // Set user email as reply-to
-      subject: `📊 Diagnóstico Torre de Controle - ${emailData.contact.name}`,
+      to: [emailData.contact.email],
+      subject: emailSubject,
       html: htmlContent,
     }
 
-    // Remove BCC since we're already sending to renatocamarotta@gmail.com
-    // if (emailBcc) {
-    //   emailOptions.bcc = [emailBcc]
-    // }
+    // Add BCC if configured
+    if (emailBcc) {
+      emailOptions.bcc = [emailBcc]
+    }
 
     console.log("[v0] Sending email via Resend")
     const { data, error } = await resend.emails.send(emailOptions)

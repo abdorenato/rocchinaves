@@ -1,6 +1,6 @@
 "use client"
 
-import { DIAGNOSIS_QUESTIONS } from "@/lib/questions"
+import { QUESTIONS } from "@/lib/questions"
 
 export default async function AdminGapsPage({
   searchParams,
@@ -41,15 +41,15 @@ export default async function AdminGapsPage({
     apiError = error instanceof Error ? error.message : "Unknown error"
   }
 
-  const currentQuestions = apiQuestions || DIAGNOSIS_QUESTIONS
+  const currentQuestions = apiQuestions || QUESTIONS
   const categories = [...new Set(currentQuestions.map((q) => q.category))]
 
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Administração - Perguntas</h1>
-          <p className="text-muted-foreground">Visualize as perguntas do diagnóstico patrimonial</p>
+          <h1 className="text-4xl font-bold mb-2">Administração - GAPs/Perguntas</h1>
+          <p className="text-muted-foreground">Visualize e gerencie as perguntas do questionário</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -104,12 +104,21 @@ export default async function AdminGapsPage({
           <h2 className="text-xl font-semibold mb-4">Como Atualizar as Perguntas</h2>
           <div className="space-y-4 text-sm">
             <div>
-              <h3 className="font-semibold mb-2">Editar Perguntas</h3>
+              <h3 className="font-semibold mb-2">Opção 1: URL Externa (GAPS_URL)</h3>
+              <ol className="list-decimal list-inside space-y-2 text-muted-foreground ml-4">
+                <li>Configure a variável de ambiente GAPS_URL com a URL do seu JSON</li>
+                <li>O JSON deve ter o formato: {`{"questions": [...]}`}</li>
+                <li>A aplicação tentará buscar desta URL primeiro</li>
+                <li>Se falhar, usará o fallback hardcoded</li>
+              </ol>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Opção 2: Editar Código (Fallback)</h3>
               <ol className="list-decimal list-inside space-y-2 text-muted-foreground ml-4">
                 <li>
                   Edite o arquivo <code className="bg-muted px-1 rounded">lib/questions.ts</code>
                 </li>
-                <li>Modifique o array DIAGNOSIS_QUESTIONS com suas perguntas</li>
+                <li>Modifique o array QUESTIONS com suas perguntas</li>
                 <li>Faça commit e deploy das mudanças</li>
               </ol>
             </div>
@@ -117,14 +126,15 @@ export default async function AdminGapsPage({
               <h3 className="font-semibold mb-2">Formato da Pergunta</h3>
               <pre className="bg-muted p-3 rounded overflow-x-auto mt-2">
                 {`{
-  "id": "diag_imoveis_qtd",
-  "category": "Patrimônio Imobiliário",
-  "question": "Quantos imóveis você possui?",
+  "id": "unique-id",
+  "category": "Nome da Categoria",
+  "question": "Texto da pergunta?",
   "options": [
-    { "value": "1", "label": "1 imóvel" },
-    { "value": "2-3", "label": "2 a 3 imóveis" },
-    { "value": "4-5", "label": "4 a 5 imóveis" },
-    { "value": "6+", "label": "Mais de 6 imóveis" }
+    { "value": 1, "label": "Opção 1" },
+    { "value": 2, "label": "Opção 2" },
+    { "value": 3, "label": "Opção 3" },
+    { "value": 4, "label": "Opção 4" },
+    { "value": 5, "label": "Opção 5" }
   ]
 }`}
               </pre>
