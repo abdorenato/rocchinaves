@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { Header } from "@/components/header"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Mail, Loader2, CheckCircle2, AlertTriangle, Shield } from "lucide-react"
+import { MessageCircle, CheckCircle2, AlertTriangle, Shield } from "lucide-react"
 
 type RiskLevel = "low" | "medium" | "high" | "critical"
 
@@ -22,9 +22,6 @@ export default function ResultsPage() {
   const router = useRouter()
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [assessment, setAssessment] = useState<RiskAssessment | null>(null)
-  const [isLoadingEmail, setIsLoadingEmail] = useState(false)
-  const [emailSent, setEmailSent] = useState(false)
-  const [emailError, setEmailError] = useState("")
 
   useEffect(() => {
     const answersJson = sessionStorage.getItem("quizAnswers")
@@ -42,66 +39,21 @@ export default function ResultsPage() {
     setAssessment(calculatedAssessment)
   }, [router])
 
-  const handleSendEmail = async () => {
-    if (!assessment || !answers) return
+  const handleWhatsAppContact = () => {
+    const phone = "5511999999999" // Replace with actual WhatsApp number
+    const message = encodeURIComponent(
+      `Olá! Acabei de completar o Diagnóstico Patrimonial - Reforma Tributária e gostaria de agendar uma consultoria para discutir os resultados.
 
-    console.log("[v0] Answers object:", answers)
-    console.log("[v0] Contact nome:", answers.contact_nome)
-    console.log("[v0] Contact email:", answers.contact_email)
-    console.log("[v0] Contact telefone:", answers.contact_telefone)
+Nome: ${answers.contact_nome}
+Email: ${answers.contact_email}
+Telefone: ${answers.contact_telefone || "Não informado"}
 
-    if (!answers.contact_nome || !answers.contact_email) {
-      console.error("[v0] Missing contact data in answers")
-      setEmailError("Dados de contato não encontrados. Por favor, reinicie o diagnóstico.")
-      return
-    }
+Nível de Risco: ${assessment?.title}
 
-    setIsLoadingEmail(true)
-    setEmailError("")
+Aguardo retorno!`,
+    )
 
-    try {
-      const emailData = {
-        contact: {
-          name: answers.contact_nome,
-          email: answers.contact_email,
-          phone: answers.contact_telefone || "",
-        },
-        assessment,
-        answers,
-      }
-
-      console.log("[v0] Sending email data:", JSON.stringify(emailData, null, 2))
-
-      const response = await fetch("/api/send-report", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(emailData),
-      })
-
-      console.log("[v0] Response status:", response.status)
-
-      const responseData = await response.json()
-      console.log("[v0] Response data:", responseData)
-
-      if (!response.ok) {
-        throw new Error(responseData.error || "Falha ao enviar e-mail")
-      }
-
-      setEmailSent(true)
-      setTimeout(() => {
-        router.push("/success")
-      }, 2000)
-    } catch (err) {
-      console.error("[v0] Error sending email:", err)
-      setEmailError(err instanceof Error ? err.message : "Não foi possível enviar o e-mail. Tente novamente.")
-      setIsLoadingEmail(false)
-    }
-  }
-
-  if (!assessment) {
-    return null
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank")
   }
 
   const getRiskColor = (level: RiskLevel) => {
@@ -206,48 +158,23 @@ export default function ResultsPage() {
             </Card>
           )}
 
-          {/* Email CTA */}
+          {/* WhatsApp CTA */}
           <Card className="bg-primary/5 border-primary/20">
             <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Receba seu relatório completo</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4">Fale com nossos especialistas</h3>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Nossa equipe receberá seu diagnóstico e entrará em contato em breve com um relatório detalhado e
-                recomendações personalizadas para otimização do seu patrimônio.
+                Agende uma consultoria personalizada com nossa equipe para discutir seu diagnóstico e receber
+                recomendações específicas para otimização do seu patrimônio.
               </p>
 
-              {emailSent ? (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-center gap-2 text-green-600 font-semibold">
-                    <CheckCircle2 className="w-5 h-5" />
-                    Diagnóstico enviado com sucesso!
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Em breve você receberá o contato da equipe Rocchi Naves com seu relatório completo.
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <Button
-                    size="lg"
-                    onClick={handleSendEmail}
-                    disabled={isLoadingEmail}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
-                  >
-                    {isLoadingEmail ? (
-                      <>
-                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        <Mail className="w-5 h-5 mr-2" />
-                        Enviar Diagnóstico
-                      </>
-                    )}
-                  </Button>
-                  {emailError && <p className="text-sm text-destructive mt-4">{emailError}</p>}
-                </>
-              )}
+              <Button
+                size="lg"
+                onClick={handleWhatsAppContact}
+                className="bg-[#25D366] hover:bg-[#20BA5A] text-white text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+              >
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Falar no WhatsApp
+              </Button>
 
               <p className="text-xs text-muted-foreground mt-4">
                 Seus dados estão protegidos e serão utilizados apenas para análise e contato da equipe Rocchi Naves.
