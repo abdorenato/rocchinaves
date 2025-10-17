@@ -3,13 +3,12 @@ import { QuestionsArraySchema } from "@/lib/gaps-schema"
 
 /**
  * POST /api/gaps-upload
- * Admin endpoint to upload new GAPs JSON
+ * Admin endpoint to validate questions JSON structure
  * Requires ADMIN_TOKEN for authentication
  * Validates JSON structure with Zod schema
  */
 export async function POST(request: NextRequest) {
   try {
-    // Check authentication
     const authHeader = request.headers.get("authorization")
     const adminToken = process.env.ADMIN_TOKEN
 
@@ -39,24 +38,18 @@ export async function POST(request: NextRequest) {
 
     const questions = validationResult.data
 
-    // In a real implementation, you would:
-    // 1. Upload to Vercel Blob or S3
-    // 2. Update GAPS_URL environment variable
-    // 3. Clear cache
-
-    // For now, return success with validation confirmation
     return NextResponse.json({
       success: true,
-      message: "GAPs JSON validated successfully",
+      message: "Questions JSON validated successfully",
       questionsCount: questions.length,
       timestamp: new Date().toISOString(),
-      note: "To complete upload, integrate with Vercel Blob or S3 storage",
+      note: "Questions are managed in lib/questions.ts",
     })
   } catch (error) {
-    console.error("[v0] Error uploading GAPs:", error)
+    console.error("[v0] Error validating questions:", error)
     return NextResponse.json(
       {
-        error: "Failed to process upload",
+        error: "Failed to process validation",
         details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 },

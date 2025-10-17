@@ -6,6 +6,21 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 export async function POST(request: Request) {
   try {
     console.log("[v0] Received quiz data email request")
+
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey || apiKey.trim() === "") {
+      console.error("[v0] RESEND_API_KEY is not configured!")
+      return NextResponse.json(
+        {
+          error: "Configuração de email não encontrada. Configure RESEND_API_KEY nas variáveis de ambiente.",
+        },
+        { status: 500 },
+      )
+    }
+
+    console.log("[v0] API Key configured:", apiKey.substring(0, 10) + "...")
+    const resend = new Resend(apiKey)
+
     const body = await request.json()
     const { contact, answers } = body
 
@@ -27,18 +42,31 @@ export async function POST(request: Request) {
     }
 
     console.log("[v0] Sending quiz data email to team")
+    console.log("[v0] Email from:", emailFrom)
+    console.log("[v0] Email to:", emailOptions.to)
+
     const { data, error } = await resend.emails.send(emailOptions)
 
     if (error) {
       console.error("[v0] Resend API error:", error)
-      return NextResponse.json({ error: "Falha ao enviar e-mail" }, { status: 500 })
+      return NextResponse.json({ error: "Falha ao enviar e-mail: " + error.message }, { status: 500 })
     }
 
-    console.log("[v0] Quiz data email sent successfully")
+    if (!data || !data.id) {
+      console.error("[v0] No email ID returned from Resend")
+      return NextResponse.json({ error: "Email não foi enviado corretamente" }, { status: 500 })
+    }
+
+    console.log("[v0] Quiz data email sent successfully, ID:", data.id)
     return NextResponse.json({ success: true, data })
   } catch (error) {
     console.error("[v0] API error:", error)
-    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 })
+    return NextResponse.json(
+      {
+        error: "Erro interno do servidor: " + (error instanceof Error ? error.message : String(error)),
+      },
+      { status: 500 },
+    )
   }
 }
 
