@@ -1,0 +1,131 @@
+{
+  "version": "2025-10-13",
+  "items": {
+    "pessoas_marketing_1": {
+      "1": "Voo Solo: Marketing atua isolado das metas de vendas. Traduza objetivos comerciais em KPIs de marketing e socialize-os com o time.",
+      "2": "Voo Solo: Existe intenção de alinhar, mas sem métricas conjuntas. Crie um quadro de metas compartilhadas e rituais quinzenais.",
+      "3": "Turbulência: Integração ocasional. Promova rituais mensais entre marketing e vendas com análise de funil e resultados.",
+      "4": "Formação de Frota: Há bom alinhamento, mas falta medir impacto das ações nas vendas.",
+      "5": "Torre de Controle: Excelente — marketing orientado a metas comerciais e aprendizado recorrente."
+    },
+    "pessoas_marketing_2": {
+      "1": "Voo Solo: Falta clareza de papéis. Mapeie funções e responsabilidades para cada área do marketing.",
+      "2": "Voo Solo: Estrutura rascunhada, mas confusa. Formalize um organograma funcional e donos de entrega.",
+      "3": "Turbulência: Papéis definidos, porém sobrepostos. Elimine ambiguidade e adote checklists por função.",
+      "4": "Formação de Frota: Clareza funcional presente, mas sem metas individuais.",
+      "5": "Torre de Controle: Papéis claros e alinhados à estratégia da empresa."
+    },
+    "pessoas_comunicacao_1": {
+      "1": "Voo Solo: Cada pessoa comunica de um jeito. Defina diretrizes de tom de voz e posicionamento.",
+      "2": "Voo Solo: Há intenção de padronizar, mas sem material de apoio. Crie um guia de comunicação breve.",
+      "3": "Turbulência: Alinhamento parcial. Treine líderes e porta-vozes para coerência de discurso.",
+      "4": "Formação de Frota: Comunicação coerente, mas sem revisão recorrente.",
+      "5": "Torre de Controle: Clareza e coerência total no discurso institucional."
+    },
+    "pessoas_comunicacao_2": {
+      "1": "Voo Solo: Risco reputacional alto — ninguém sabe quem fala em nome da empresa.",
+      "2": "Voo Solo: Há nomes definidos, mas sem preparo. Faça media training básico.",
+      "3": "Turbulência: Porta-vozes atuam, mas reagem tarde. Crie plano de resposta a crises.",
+      "4": "Formação de Frota: Estrutura sólida, falta simulação periódica.",
+      "5": "Torre de Controle: Porta-vozes treinados e prontos para responder rapidamente."
+    },
+    "pessoas_vendas_1": {
+      "1": "Voo Solo: Falta perfil e treino. Estruture competências e treine o time comercial.",
+      "2": "Voo Solo: Há talento, mas sem método. Crie roteiro de descoberta e objeções.",
+      "3": "Turbulência: Capacitação pontual, sem consistência. Faça roleplays quinzenais.",
+      "4": "Formação de Frota: Equipe bem treinada, mas sem avaliação contínua.",
+      "5": "Torre de Controle: Time preparado, confiante e atualizado constantemente."
+    },
+    "pessoas_vendas_2": {
+      "1": "Voo Solo: Sem clareza de papéis. Defina funções e metas por cargo.",
+      "2": "Voo Solo: Metas existem, mas sem mensuração. Crie painel de acompanhamento.",
+      "3": "Turbulência: Dados analisados, porém sem plano de ação.",
+      "4": "Formação de Frota: Revisões periódicas, falta foco em qualidade.",
+      "5": "Torre de Controle: Metas, métricas e papéis perfeitamente conectados."
+    },
+    "processos_marketing_1": {
+      "1": "Voo Solo: Campanhas sem planejamento estruturado. Use um canvas simples de objetivos e público.",
+      "2": "Voo Solo: Planeja, mas não mede. Adicione KPIs claros.",
+      "3": "Turbulência: Planeja e mede, mas não revisa. Faça post-mortem de campanhas.",
+      "4": "Formação de Frota: Bom processo, falta priorização e versionamento.",
+      "5": "Torre de Controle: Planejamento e execução orientados a dados."
+    },
+    "processos_marketing_2": {
+      "1": "Voo Solo: Falta definição de MQL e SQL. Crie critérios claros com vendas.",
+      "2": "Voo Solo: Critérios vagos. Formalize SLA de passagem entre times.",
+      "3": "Turbulência: Processo definido, execução irregular. Automatize handoff no CRM.",
+      "4": "Formação de Frota: Processo estável, falta auditoria periódica.",
+      "5": "Torre de Controle: Funil bem definido e auditado constantemente."
+    },
+    "processos_comunicacao_1": {
+      "1": "Voo Solo: Comunicação sem calendário. Crie um calendário editorial simples.",
+      "2": "Voo Solo: Há calendário, mas sem responsáveis. Defina donos por canal.",
+      "3": "Turbulência: Publica sem medir. Vincule conteúdo a métricas de negócio.",
+      "4": "Formação de Frota: Boa estrutura, falta revisão estratégica periódica.",
+      "5": "Torre de Controle: Comunicação planejada, integrada e orientada a resultados."
+    },
+    "processos_comunicacao_2": {
+      "1": "Voo Solo: Alinhamento interno inexistente. Crie reunião semanal ou newsletter interna.",
+      "2": "Voo Solo: Rituais existem, mas sem pauta fixa. Estruture um modelo simples.",
+      "3": "Turbulência: Reúne, mas não decide. Garanta registro de decisões.",
+      "4": "Formação de Frota: Comunicação interna eficaz, falta medir impacto.",
+      "5": "Torre de Controle: Equipes totalmente alinhadas e informadas."
+    },
+    "processos_vendas_1": {
+      "1": "Voo Solo: Vendas por instinto. Documente o processo comercial.",
+      "2": "Voo Solo: Playbook existe, mas é ignorado. Simplifique e socialize.",
+      "3": "Turbulência: Playbook em uso parcial. Vincule etapas ao CRM.",
+      "4": "Formação de Frota: Processo rodando bem, precisa revisão periódica.",
+      "5": "Torre de Controle: Playbook vivo e integrado às ferramentas."
+    },
+    "processos_vendas_2": {
+      "1": "Voo Solo: Falta revisão de pipeline. Crie rotina semanal.",
+      "2": "Voo Solo: Reuniões ocorrem, mas sem foco. Estruture ações por etapa.",
+      "3": "Turbulência: Direciona, mas não acompanha. Crie plano de follow-up.",
+      "4": "Formação de Frota: Processo maduro, faltam métricas preditivas.",
+      "5": "Torre de Controle: Pipeline previsível e confiável."
+    },
+    "plataformas_marketing_1": {
+      "1": "Voo Solo: Dados dispersos. Unifique fontes em um painel único.",
+      "2": "Voo Solo: Integrações básicas. Adote convenções de UTMs.",
+      "3": "Turbulência: Mede, mas atribui mal. Revise modelo de atribuição.",
+      "4": "Formação de Frota: Bom analytics, falta granularidade por campanha.",
+      "5": "Torre de Controle: Dados confiáveis e acionáveis em tempo real."
+    },
+    "plataformas_marketing_2": {
+      "1": "Voo Solo: Zero automação. Configure régua simples de nutrição.",
+      "2": "Voo Solo: Automação desconectada do CRM. Integre via API.",
+      "3": "Turbulência: Flui, mas sem segmentação. Use filtros por interesse.",
+      "4": "Formação de Frota: Fluxos ativos, faltam testes A/B.",
+      "5": "Torre de Controle: Automação inteligente e alinhada ao funil."
+    },
+    "plataformas_comunicacao_1": {
+      "1": "Voo Solo: Conteúdos espalhados. Centralize em CMS ou pasta-mãe.",
+      "2": "Voo Solo: CMS existe, mas sem governança. Defina donos e padrões.",
+      "3": "Turbulência: Publica, mas perde ativos. Crie taxonomia e backups.",
+      "4": "Formação de Frota: Estrutura boa, falta auditoria de SEO e links.",
+      "5": "Torre de Controle: Ecossistema conectado e governado."
+    },
+    "plataformas_comunicacao_2": {
+      "1": "Voo Solo: Conversas se perdem. Centralize atendimentos.",
+      "2": "Voo Solo: Registros parciais. Padronize SLAs e motivos.",
+      "3": "Turbulência: Integração manual. Automatize via conectores.",
+      "4": "Formação de Frota: Processo rodando, falta controle de qualidade.",
+      "5": "Torre de Controle: Relacionamento fluido e rastreável."
+    },
+    "plataformas_vendas_1": {
+      "1": "Voo Solo: CRM ignorado. Simplifique campos e cobre uso diário.",
+      "2": "Voo Solo: Uso esporádico. Vincule incentivos ao uso do CRM.",
+      "3": "Turbulência: Atualização irregular. Defina campos obrigatórios.",
+      "4": "Formação de Frota: Boa adoção, falta auditoria e coaching.",
+      "5": "Torre de Controle: CRM confiável e central no processo comercial."
+    },
+    "plataformas_vendas_2": {
+      "1": "Voo Solo: Falta visibilidade de resultados. Crie painel básico de forecast.",
+      "2": "Voo Solo: Painel existe, mas estático. Automatize atualizações.",
+      "3": "Turbulência: Vê números, mas não age. Institua rituais de decisão.",
+      "4": "Formação de Frota: Bom painel, falta granularidade por canal.",
+      "5": "Torre de Controle: Dashboards completos e orientados a decisão."
+    }
+  }
+}
