@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  assetPrefix: 'https://radar-renato-abdo.vercel.app',
   eslint: {
     ignoreDuringBuilds: true,
   },
