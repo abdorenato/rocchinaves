@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: '/radar',
-  assetPrefix: '/radar',
   eslint: {
     ignoreDuringBuilds: true,
   },
