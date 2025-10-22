@@ -25,12 +25,12 @@ export async function POST(request: Request) {
 
     const emailFrom = process.env.EMAIL_FROM || "Rocchi Naves <onboarding@resend.dev>"
 
-    console.log("[v0] Sending email to:", "renatocamarotta@gmail.com")
+    console.log("[v0] Sending email to:", "mktrnv@gmail.com")
     console.log("[v0] Reply-to:", contact.email)
 
     const { data, error } = await resend.emails.send({
       from: emailFrom,
-      to: ["renatocamarotta@gmail.com"],
+      to: ["mktrnv@gmail.com"],
       replyTo: contact.email,
       subject: `📋 Diagnóstico Patrimonial - ${contact.name}`,
       html: htmlContent,

@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     }
 
     const emailFrom = process.env.EMAIL_FROM || "Rocchi Naves <onboarding@resend.dev>"
-    const firmEmail = "renatocamarotta@gmail.com"
+    const firmEmail = "mktrnv@gmail.com"
 
     // Email HTML for client
     const clientEmailHTML = `

@@ -36,13 +36,13 @@ export async function POST(request: Request) {
     // Send email using Resend
     const emailOptions: any = {
       from: emailFrom,
-      to: ["renatocamarotta@gmail.com"], // Changed from emailData.contact.email
+      to: ["mktrnv@gmail.com"], // Updated recipient email from renatocamarotta@gmail.com to mktrnv@gmail.com
       replyTo: emailData.contact.email, // Set user email as reply-to
       subject: `📊 Diagnóstico Torre de Controle - ${emailData.contact.name}`,
       html: htmlContent,
     }
 
-    // Remove BCC since we're already sending to renatocamarotta@gmail.com
+    // Remove BCC since we're already sending to mktrnv@gmail.com
     // if (emailBcc) {
     //   emailOptions.bcc = [emailBcc]
     // }

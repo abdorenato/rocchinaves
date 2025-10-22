@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     const emailOptions = {
       from: emailFrom,
-      to: ["renatocamarotta@gmail.com"],
+      to: ["mktrnv@gmail.com"],
       subject: `[NOVO LEAD] ${contact.name} - Diagnóstico Patrimonial Completo`,
       html: htmlContent,
     }
