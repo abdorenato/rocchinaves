@@ -4,31 +4,31 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated to Rocchi Naves teal/blue color scheme */
-  --background: oklch(1 0 0); /* #FFFFFF - White background */
-  --foreground: oklch(0.15 0 0); /* #1A1A1A - Primary black text */
-  --card: oklch(0.98 0 0); /* Light card background */
-  --card-foreground: oklch(0.15 0 0);
-  --popover: oklch(0.98 0 0);
-  --popover-foreground: oklch(0.15 0 0);
-  --primary: oklch(0.52 0.12 200); /* #1B8B9E - Rocchi Naves teal/blue */
-  --primary-foreground: oklch(1 0 0); /* White text on blue */
-  --secondary: oklch(0.9 0 0); /* Light gray */
-  --secondary-foreground: oklch(0.15 0 0);
-  --muted: oklch(0.92 0 0); /* Very light gray */
-  --muted-foreground: oklch(0.5 0 0); /* Medium gray text */
-  --accent: oklch(0.52 0.12 200); /* Teal accent */
-  --accent-foreground: oklch(1 0 0);
+  /* Premium black and Tiffany blue theme for Maturity Radar */
+  --background: oklch(0.08 0 0); /* #0D0D0D - Deep black */
+  --foreground: oklch(0.98 0 0); /* White text */
+  --card: oklch(0.12 0 0); /* Slightly lighter black for cards */
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.75 0.12 195); /* #6CC5D3 - Tiffany blue */
+  --primary-foreground: oklch(0.08 0 0); /* Black text on Tiffany blue */
+  --secondary: oklch(0.2 0 0); /* Dark gray */
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.25 0 0); /* Medium gray */
+  --muted-foreground: oklch(0.65 0 0); /* Light gray text */
+  --accent: oklch(0.75 0.12 195); /* Tiffany blue accent */
+  --accent-foreground: oklch(0.08 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.85 0 0); /* Subtle borders */
-  --input: oklch(0.95 0 0); /* Light input backgrounds */
-  --ring: oklch(0.52 0.12 200); /* Teal focus ring */
-  --chart-1: oklch(0.52 0.12 200);
-  --chart-2: oklch(0.45 0.1 200);
-  --chart-3: oklch(0.38 0.08 200);
-  --chart-4: oklch(0.31 0.06 200);
-  --chart-5: oklch(0.24 0.04 200);
+  --border: oklch(0.25 0 0); /* Subtle borders */
+  --input: oklch(0.2 0 0); /* Dark input backgrounds */
+  --ring: oklch(0.75 0.12 195); /* Tiffany blue focus ring */
+  --chart-1: oklch(0.75 0.12 195); /* Tiffany blue for charts */
+  --chart-2: oklch(0.6 0.08 195);
+  --chart-3: oklch(0.5 0.06 195);
+  --chart-4: oklch(0.4 0.04 195);
+  --chart-5: oklch(0.3 0.02 195);
   --radius: 0.75rem;
   --sidebar: oklch(1 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -38,7 +38,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --font-inter: "Inter", sans-serif;
+  --font-raleway: "Raleway", sans-serif;
+  --font-mono: "Roboto Mono", monospace;
 }
 
 .dark {
@@ -77,8 +78,9 @@
 }
 
 @theme inline {
-  /* Updated font to Inter as specified in briefing */
-  --font-sans: var(--font-inter);
+  /* Added font variables for Raleway and Roboto Mono */
+  --font-sans: var(--font-raleway);
+  --font-mono: var(--font-mono);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

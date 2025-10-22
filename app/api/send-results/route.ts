@@ -9,7 +9,8 @@ export async function POST(request: Request) {
     console.log("[v0] Received email request")
     const body = await request.json()
     console.log("[v0] Request body parsed successfully")
-    const emailData = body as EmailTemplateData
+
+    const { adminEmail, ...emailData } = body as EmailTemplateData & { adminEmail?: string }
 
     // Validate required fields
     if (!emailData?.contact?.email || !emailData?.contact?.name || !emailData?.scores) {
@@ -33,19 +34,22 @@ export async function POST(request: Request) {
     const emailSubject = process.env.EMAIL_SUBJECT || "Seu Diagnóstico Torre de Controle™ está pronto 🚀"
     const emailBcc = process.env.EMAIL_BCC
 
+    const recipientEmail = adminEmail || emailData.contact.email
+    const isAdminEmail = !!adminEmail
+
     // Send email using Resend
     const emailOptions: any = {
       from: emailFrom,
-      to: ["mktrnv@gmail.com"], // Updated recipient email from renatocamarotta@gmail.com to mktrnv@gmail.com
-      replyTo: emailData.contact.email, // Set user email as reply-to
-      subject: `📊 Diagnóstico Torre de Controle - ${emailData.contact.name}`,
+      to: [recipientEmail],
+      subject: isAdminEmail
+        ? `[Admin] Novo diagnóstico: ${emailData.contact.name} - ${emailData.scores.overall.toFixed(1)}/5.0`
+        : emailSubject,
       html: htmlContent,
     }
 
-    // Remove BCC since we're already sending to mktrnv@gmail.com
-    // if (emailBcc) {
-    //   emailOptions.bcc = [emailBcc]
-    // }
+    if (emailBcc && !isAdminEmail) {
+      emailOptions.bcc = [emailBcc]
+    }
 
     console.log("[v0] Sending email via Resend")
     const { data, error } = await resend.emails.send(emailOptions)

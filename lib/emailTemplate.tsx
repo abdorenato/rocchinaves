@@ -3,6 +3,7 @@ export interface EmailTemplateData {
     name: string
     email: string
     company?: string
+    segment?: string
     position?: string
     revenue?: string
     phone?: string
@@ -28,6 +29,10 @@ export interface EmailTemplateData {
     area: string
     text: string
   }>
+  charts?: {
+    radar3ps: string
+    radarAreas: string
+  }
   isInternalCopy?: boolean
 }
 
@@ -141,7 +146,7 @@ export function renderEmailHTML(data: EmailTemplateData): string {
                 Olá, <strong style="color: #6CC5D3;">${contact.name}</strong>!
               </p>
               <p style="margin: 15px 0 0; font-size: 17px; line-height: 1.6; color: #CCCCCC;">
-                Obrigado por completar o Diagnóstico Torre de Controle™. Aqui está sua análise completa sobre o nível de maturidade e integração entre Marketing, Comunicação e Vendas da sua empresa.
+                ${isInternalCopy ? "Novo diagnóstico completado." : "Obrigado por completar o Diagnóstico Torre de Controle™."} Aqui está ${isInternalCopy ? "a" : "sua"} análise completa sobre o nível de maturidade e integração entre Marketing, Comunicação e Vendas da ${isInternalCopy ? "empresa" : "sua empresa"}.
               </p>
             </td>
           </tr>
@@ -152,7 +157,7 @@ export function renderEmailHTML(data: EmailTemplateData): string {
                 <tr>
                   <td style="padding: 25px; text-align: center;">
                     <p style="margin: 0; font-size: 15px; color: ${levelColor}; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
-                      SEU NÍVEL DE MATURIDADE
+                      ${isInternalCopy ? "NÍVEL DE MATURIDADE" : "SEU NÍVEL DE MATURIDADE"}
                     </p>
                     <h2 style="margin: 10px 0 5px; font-size: 36px; font-weight: 700; color: ${levelColor};">
                       ${narrative.level}
@@ -307,7 +312,7 @@ export function renderEmailHTML(data: EmailTemplateData): string {
           <tr>
             <td style="padding: 20px 30px;">
               <h3 style="margin: 0 0 15px; font-size: 22px; font-weight: 700; color: #FFFFFF; text-transform: uppercase;">
-                Seus Pontos Fortes
+                ${isInternalCopy ? "Pontos Fortes" : "Seus Pontos Fortes"}
               </h3>
               <p style="margin: 0 0 15px; font-size: 14px; color: #CCCCCC;">
                 Continue mantendo essas práticas
@@ -357,7 +362,7 @@ export function renderEmailHTML(data: EmailTemplateData): string {
           <tr>
             <td style="padding: 20px 30px;">
               <h3 style="margin: 0 0 15px; font-size: 20px; font-weight: 700; color: #888888; text-transform: uppercase;">
-                Informações do Diagnóstico
+                Informações do ${isInternalCopy ? "Lead" : "Diagnóstico"}
               </h3>
               <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0D0D0D; border-radius: 6px; padding: 15px;">
                 <tr>
@@ -369,11 +374,31 @@ export function renderEmailHTML(data: EmailTemplateData): string {
                   <td style="padding: 6px 0; font-size: 14px; color: #CCCCCC; font-weight: 600;">${contact.email}</td>
                 </tr>
                 ${
+                  contact.phone
+                    ? `
+                <tr>
+                  <td style="padding: 6px 0; font-size: 14px; color: #888888;">Telefone:</td>
+                  <td style="padding: 6px 0; font-size: 14px; color: #CCCCCC; font-weight: 600;">${contact.phone}</td>
+                </tr>
+                `
+                    : ""
+                }
+                ${
                   contact.company
                     ? `
                 <tr>
                   <td style="padding: 6px 0; font-size: 14px; color: #888888;">Empresa:</td>
                   <td style="padding: 6px 0; font-size: 14px; color: #CCCCCC; font-weight: 600;">${contact.company}</td>
+                </tr>
+                `
+                    : ""
+                }
+                ${
+                  contact.segment
+                    ? `
+                <tr>
+                  <td style="padding: 6px 0; font-size: 14px; color: #888888;">Segmento:</td>
+                  <td style="padding: 6px 0; font-size: 14px; color: #CCCCCC; font-weight: 600;">${contact.segment}</td>
                 </tr>
                 `
                     : ""
@@ -406,6 +431,9 @@ export function renderEmailHTML(data: EmailTemplateData): string {
             </td>
           </tr>
 
+          ${
+            !isInternalCopy
+              ? `
           <tr>
             <td style="padding: 30px;">
               <hr style="border: 0; border-top: 1px solid #222222; margin: 0 0 25px;" />
@@ -434,6 +462,9 @@ export function renderEmailHTML(data: EmailTemplateData): string {
               </table>
             </td>
           </tr>
+          `
+              : ""
+          }
 
           <tr>
             <td style="padding: 30px; background-color: #0D0D0D; border-top: 2px solid #6CC5D3; text-align: center;">
